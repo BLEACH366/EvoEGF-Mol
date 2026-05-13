@@ -24,6 +24,7 @@ Technical details and evaluation results are provided in our paper:
   - [License](#license)
   - [Citation](#citation)
 
+[gdrive]: https://drive.google.com/drive/folders/1GscjGciX5GjiynAR0N71iTCZd3C9Qzth
 
 ## Installation
 You can set up the environment using **either** of the following methods.
@@ -45,7 +46,7 @@ conda activate MolPIF
 
 #### Option 2: Use the pre-packed environment archive
 
-Alternatively, you can download the pre-built environment archive we provide, extract the archive and configure environment variables using conda-unpack:
+Alternatively, you can download the pre-built environment archive `molpif_env.tar.gz` we provide from [Google Drive][gdrive], extract the archive and configure environment variables using `conda-unpack`:
 ```bash
 tar -xzf molpif_env.tar.gz -C molpif_env
 ./molpif_env/bin/conda-unpack
@@ -57,8 +58,6 @@ conda activate ./molpif_env
 ```
 
 ## Prepare Dataset
-[gdrive]: https://drive.google.com/drive/folders/1GscjGciX5GjiynAR0N71iTCZd3C9Qzth
-
 We use the same data as [MolPilot](https://github.com/GenSI-THUAIR/MolCRAFT/tree/master/MolPilot#data). Data used for training / evaluating the model should be put in the `./data` folder by default.
 
 To train the model from scratch, download the lmdb file and split file into data folder:

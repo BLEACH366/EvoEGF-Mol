@@ -65,11 +65,11 @@ To train the model from scratch, download the lmdb file and split file into data
 * `crossdocked_v1.1_rmsd1.0_pocket10_processed_kekulize.lmdb`
 * `crossdocked_pose_split_kekulize.pt`
 
-To evaluate the model on the test set, download and unzip the test_set.zip from [Google Drive](gdrive) into `./data` folder. It includes the original PDB files that will be used in Vina Docking.
+To evaluate the model on the test set, download and unzip the test_set.zip from [Google Drive][gdrive] into `./data` folder. It includes the original PDB files that will be used in Vina Docking.
 
 
 ## Model weights
-Download the `weights` folder from [Google Drive](gdrive) and place it in the project root directory (`./`). You can use the pretrained weight for inference.
+Download the `weights` folder from [Google Drive][gdrive] and place it in the project root directory (`./`). You can use the pretrained weight for inference.
 - 📂 weights
     - 📂 checkpoints
         - 📄 pretrained.ckpt
@@ -109,7 +109,7 @@ For de novo molecule generation targeting a specified protein pocket, use the ge
 
 #### Lead Optimization
 
-For lead optimization, You can download the `weights_lead` folder from [Google Drive](gdrive) and place it in the project root directory (`./`), it is trained by setting random BFS mask probability parameter `pm` and `pam` in `./configs/default.yaml`. Specify additional fixed-atom information:
+For lead optimization, You can download the `weights_lead` folder from [Google Drive][gdrive] and place it in the project root directory (`./`), it is trained by setting random BFS mask probability parameter `pm` and `pam` in `./configs/default.yaml`. Specify additional fixed-atom information:
 
 ```bash
 python sample_for_pocket.py \
@@ -153,7 +153,7 @@ Example outputs will be generated in:
 ## Evaluation
 For regular properties (vina score, QED, SA, SE, etc), it is calculated upon sampling. The other evaluation procedure is from [MolGenBench](https://github.com/Intelligent-Drug-Discovery-Lab-TJU/MolGenBench) and [CBGBench](https://github.com/EDAPINENUT/CBGBench/tree/7a34993a8033b0a344ce24cb7c8fb40e5cb73b65); please refer to them for details.
 
-Generated results `EvoEGF-Mol_vina_docked.pt` and `EvoEGF-Mol_metrics.json` can be downloaded from [Google Drive](gdrive)
+Generated results `EvoEGF-Mol_vina_docked.pt` and `EvoEGF-Mol_metrics.json` can be downloaded from [Google Drive][gdrive]
 
 ## License
 This project is licensed under the terms of the GPL-3.0 license.

@@ -1,2 +1,3 @@
-molpif_env.tar.gz
-weights
+/molpif_env.tar.gz
+/weights/
+__pycache__/

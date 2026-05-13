@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 set -e
 
-# ========== ÅäÖÃ²¿·Ö ==========
-ENV_NAME=MolPIF
+# ========== ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½ ==========
+ENV_NAME=evoegfmol
 PYTHON_VER=3.11
 
-# ========== Step 1: °²×° mamba ==========
+# ========== Step 1: ï¿½ï¿½×° mamba ==========
 if ! command -v mamba &> /dev/null; then
     echo "[INFO] Installing mamba..."
     conda install -y -n base -c conda-forge mamba
 fi
 
-# ========== Step 2: ´´½¨ conda »·¾³ ==========
+# ========== Step 2: ï¿½ï¿½ï¿½ï¿½ conda ï¿½ï¿½ï¿½ï¿½ ==========
 if conda env list | grep -q "$ENV_NAME"; then
     echo "[INFO] Conda environment '$ENV_NAME' already exists."
 else
@@ -19,7 +19,7 @@ else
     mamba create -y -n $ENV_NAME python=$PYTHON_VER
 fi
 
-# ========== Step 3A: °²×° PyTorch + CUDA ==========
+# ========== Step 3A: ï¿½ï¿½×° PyTorch + CUDA ==========
 echo "[INFO] Installing PyTorch stack..."
 mamba install -y -n $ENV_NAME -c pytorch -c nvidia \
     pytorch=2.5.0 \
@@ -27,7 +27,7 @@ mamba install -y -n $ENV_NAME -c pytorch -c nvidia \
     torchvision=0.20.0 \
     torchaudio=2.5.0
 
-# ========== Step 3B: °²×°·Ö×ÓÄ£Äâ¹¤¾ß ==========
+# ========== Step 3B: ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½Ä£ï¿½â¹¤ï¿½ï¿½ ==========
 echo "[INFO] Installing molecular modeling tools..."
 mamba install -y -n $ENV_NAME -c conda-forge -c mx \
     openbabel=3.1.1 \
@@ -36,12 +36,12 @@ mamba install -y -n $ENV_NAME -c conda-forge -c mx \
     six=1.17.0 \
     reduce=3.24
 
-# ========== Step 3C: °²×° PyTorch Lightning ==========
+# ========== Step 3C: ï¿½ï¿½×° PyTorch Lightning ==========
 echo "[INFO] Installing PyTorch Lightning..."
 mamba install -y -n $ENV_NAME -c conda-forge \
     pytorch-lightning=2.5.5 
 
-# ========== Step 4: °²×° pip ÒÀÀµ ==========
+# ========== Step 4: ï¿½ï¿½×° pip ï¿½ï¿½ï¿½ï¿½ ==========
 echo "[INFO] Installing pip dependencies..."
 mamba run -n $ENV_NAME pip install torch-scatter torch-sparse torch-cluster \
     -f https://data.pyg.org/whl/torch-2.5.0+cu124.html

@@ -41,20 +41,20 @@ The default CUDA version is 12.4. (The environment is the same as [MolPIF](https
 
 After installation, activate the environment with:
 ```bash
-conda activate MolPIF
+conda activate evoegfmol
 ```
 
 #### Option 2: Use the pre-packed environment archive
 
-Alternatively, you can download the pre-built environment archive `molpif_env.tar.gz` we provide from [Google Drive][gdrive], extract the archive and configure environment variables using `conda-unpack`:
+Alternatively, you can download the pre-built environment archive `evoegfmol_env.tar.gz` we provide from [Google Drive][gdrive], extract the archive and configure environment variables using `conda-unpack`:
 ```bash
-tar -xzf molpif_env.tar.gz -C molpif_env
-./molpif_env/bin/conda-unpack
+tar -xzf evoegfmol_env.tar.gz -C evoegfmol
+./evoegfmol/bin/conda-unpack
 ```
 
 Then activate the environment with:
 ```bash
-conda activate ./molpif_env
+conda activate ./evoegfmol
 ```
 
 ## Prepare Dataset

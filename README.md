@@ -86,9 +86,9 @@ And you will get the intermediate results and the checkpoints in `./logs`.
 
 ## Inference
 
-#### General Command
+#### De Novo Design
 
-Run molecule generation with:
+For de novo molecule generation targeting a specified protein pocket, you can run molecule generation with:
 
 ```bash
 python sample_for_pocket.py \
@@ -100,15 +100,9 @@ python sample_for_pocket.py \
 
 Generated molecules will be saved to `$out_fn`.
 
-
-#### De Novo Design
-
-For de novo molecule generation targeting a specified protein pocket, use the general command above.
-
-
 #### Lead Optimization
 
-For lead optimization, You can download the `weights_lead` folder from [Google Drive][gdrive] and place it in the project root directory (`./`), it is trained by setting random BFS mask probability parameter `pm` and `pam` in `./configs/default.yaml`. Specify additional fixed-atom information:
+For lead optimization, You can download the `weights_lead` folder from [Google Drive][gdrive] and place it in the project root directory (`./`), it is trained by setting random BFS mask probability parameter `pm` and `pam` in `./configs/default.yaml`. Specify additional fixed-atom information and run:
 
 ```bash
 python sample_for_pocket.py \
@@ -145,12 +139,12 @@ python sample_for_pocket.py \
 Example outputs will be generated in:
 
 ```text
-./example/output_test
+./example/BSD_ASPTE_1_130_0/test
 ```
 
 
 ## Evaluation
-For regular properties (vina score, QED, SA, SE, etc), it is calculated upon sampling. The other evaluation procedure is from [MolGenBench](https://github.com/Intelligent-Drug-Discovery-Lab-TJU/MolGenBench) and [CBGBench](https://github.com/EDAPINENUT/CBGBench/tree/7a34993a8033b0a344ce24cb7c8fb40e5cb73b65); please refer to them for details.
+For regular properties (vina, QED, SA, SE, etc), it is calculated upon sampling, or you can use `evaluate_multiprocess.sh` to calculate. The other evaluation procedure is from [MolGenBench](https://github.com/Intelligent-Drug-Discovery-Lab-TJU/MolGenBench) and [CBGBench](https://github.com/EDAPINENUT/CBGBench/tree/7a34993a8033b0a344ce24cb7c8fb40e5cb73b65); please refer to them for details.
 
 Generated results `EvoEGF-Mol_vina_docked.pt` and `EvoEGF-Mol_metrics.json` can be downloaded from [Google Drive][gdrive].
 

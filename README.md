@@ -64,7 +64,7 @@ To train the model from scratch, download the lmdb file and split file into data
 * `crossdocked_v1.1_rmsd1.0_pocket10_processed_kekulize.lmdb`
 * `crossdocked_pose_split_kekulize.pt`
 
-To evaluate the model on the test set, download and unzip the test_set.zip from [Google Drive][gdrive] into `./data` folder. It includes the original PDB files that will be used in Vina Docking.
+To evaluate the model on the test set, download and unzip the `test_set.tar.gz` from [Google Drive][gdrive] into `./data` folder. It includes the original PDB files that will be used in Vina Docking for evaluation.
 
 
 ## Model weights

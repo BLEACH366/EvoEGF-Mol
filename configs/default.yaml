@@ -1,0 +1,175 @@
+project_name: &_project_name !ENV "${LOGNAME}_evoegf_sbdd"
+exp_name: &_exp_name !SUB ${exp_name}
+revision: &_revision !SUB ${revision}
+debug: !SUB ${debug}
+no_wandb: !SUB ${no_wandb}
+wandb_resume_id: !SUB ${wandb_resume_id}
+logging_level: !SUB ${logging_level}
+seed: 1234
+test_only: !SUB ${test_only}
+empty_folder: !SUB ${empty_folder}
+
+
+#model
+dynamics:
+  t_min: 0  # 1e-4
+  protein_atom_feature_dim: 27
+  ligand_atom_feature_dim: 24
+  use_discrete_t: True
+  discrete_steps: 1000
+  destination_prediction: True
+  sampling_strategy: end_back_pmf
+  node_indicator: True
+  time_emb_dim: 1  # 1
+  time_emb_mode: simple  # ["simple", "sin", 'rbf', 'rbfnn']
+  center_pos_mode: protein  # ['protein', 'ligand']
+
+  c_s0: 1.0
+  c_s1: 0.2
+  d_s1: 0.2
+  pm: 0.0
+  pam: 0.0
+
+  # net_config:
+  #     name: "unio2net"
+  #     num_blocks: 1  
+  #     num_layers: 9  
+  #     hidden_dim: 128
+  #     n_heads: 16
+  #     edge_feat_dim: 4  # edge type feat
+  #     num_r_gaussian: 20
+  #     knn: 32
+  #     num_node_types: 8
+  #     act_fn: relu
+  #     norm: True
+  #     cutoff_mode: knn  # [radius, knn]
+  #     ew_net_type: global  # [global, r, m, none]
+  #     num_x2h: 1
+  #     num_h2x: 1
+  #     r_max: 10.
+  #     x2h_out_fc: False
+  #     sync_twoup: False
+
+  #     num_bond_classes: 5  # not used
+  #     bond_net_type: lin  # not used
+
+
+  net_config:
+      # bond
+      name: "unio2net_bond"
+      num_bond_classes: 5
+      bond_net_type: lin  # ['lin', 'pre_att', 'flowmol', 'semla', 'lin+x']
+      h_node_in_bond_net: True
+      # remaining
+      num_blocks: 1
+      num_layers: 4
+      hidden_dim: 128
+      n_heads: 16
+      edge_feat_dim: 4  # edge type feat
+      num_r_gaussian: 20
+      knn: 32 # !
+      # num_node_types: 8
+      act_fn: relu
+      norm: True
+      # adaptive_norm: False
+      adaptive_norm: True
+      cutoff_mode: knn  # [radius, none]
+      # ew_net_type: global  # [r, m, none]
+      # num_x2h: 1
+      # num_h2x: 1
+      r_max: 10.
+      x2h_out_fc: False
+      sync_twoup: False
+      dropout: 0.1
+
+
+
+accounting:
+  logdir: &_logdir !PATHJOIN ["./logs/", *_project_name, *_exp_name, *_revision]
+  dump_config_path: !PATHJOIN [*_logdir, "config.yaml"]
+  wandb_logdir: *_logdir
+  checkpoint_dir: !PATHJOIN [*_logdir, "checkpoints"]
+  generated_mol_dir: !PATHJOIN [*_logdir, "generated_mol"]
+  val_outputs_dir: !PATHJOIN [*_logdir, "val_outputs"]
+  test_outputs_dir: !PATHJOIN [*_logdir, "test_outputs"]
+
+
+# data:
+#   name: pl_tr # pl, pl_tr
+#   path: ./data/crossdocked_v1.1_rmsd1.0_pocket10
+#   split:  ./data/crossdocked_pocket10_pose_split.pt
+#   transform:
+#     ligand_atom_mode: full  # [basic, add_aromatic, full]
+#   with_split: True
+#   atom_decoder: ['H', 'C', 'N', 'O', 'F', 'P', 'S', 'Cl']
+#   colors_dic: ['#FFFFFF99', 'C7', 'C0', 'C3', 'C1', 'C4', 'C8', 'C9', ]
+#   radius_dic: [0.3, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6]
+#   normalizer_dict: 
+#     pos: 2.0
+  
+
+data:
+  name: pl # pl, pl_tr
+  path: ./data/crossdocked_v1.1_rmsd1.0_pocket10
+  version: kekulize
+  smiles_path: null
+  with_split: True
+  split:  ./data/crossdocked_pose_split_kekulize.pt
+  transform:
+    ligand_atom_mode: full  # ["basic", "basic_PDB", "basic_plus_charge_PDB", "add_aromatic", "add_aromatic_plus_charge", "basic_plus_aromatic", "basic_plus_full", "basic_plus_charge", "full"]
+  atom_decoder: ['H', 'C', 'N', 'O', 'F', 'P', 'S', 'Cl']
+  colors_dic: ['#FFFFFF99', 'C7', 'C0', 'C3', 'C1', 'C4', 'C8', 'C9', ]
+  radius_dic: [0.3, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6]
+  normalizer_dict: 
+    pos: 2.0
+
+
+visual:
+  save_mols: True
+  visual_nums: 10
+  visual_chain: False
+
+
+train:
+  # precision: "16-mixed"
+  batch_size: 16
+  num_workers: 8
+  pos_noise_std: 0.0
+  random_rot: False
+  val_freq: 2000
+  epochs: 25
+  resume: False
+  v_loss_weight: 1.0
+  ckpt_freq: 1
+  max_grad_norm: 'Q'
+  optimizer: 
+    type: "adam"
+    lr: 5.e-4
+    weight_decay: 0.0
+    beta1: 0.95
+    beta2: 0.999
+  scheduler: 
+    type: plateau  # ['cosine', 'plateau']
+    factor: 0.6
+    patience: 10
+    min_lr: 1.e-6
+    max_iters: 20000
+  ema_decay: 0.999
+
+
+evaluation:
+  ckpt_path: !SUB ${ckpt_path}
+  batch_size: 100
+  sample_steps: 100  # 100
+  num_samples: 100
+  sample_num_atoms: ref  # ['prior', 'ref']
+  docking_config:
+    mode: vina_score # ['qvina', 'vina_score', 'vina_dock']
+    protein_root: ./data/test_set
+    exhaustiveness: 16
+  ligand_path: !SUB ${ligand_path:-null}
+  protein_path: !SUB ${protein_path:-null}
+
+
+
+

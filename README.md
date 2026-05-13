@@ -144,7 +144,7 @@ Example outputs will be generated in:
 
 
 ## Evaluation
-For regular properties (vina, QED, SA, SE, etc), it is calculated upon sampling, or you can use `evaluate_multiprocess.sh` to calculate. The other evaluation procedure is from [MolGenBench](https://github.com/Intelligent-Drug-Discovery-Lab-TJU/MolGenBench) and [CBGBench](https://github.com/EDAPINENUT/CBGBench/tree/7a34993a8033b0a344ce24cb7c8fb40e5cb73b65); please refer to them for details.
+For regular properties (vina, QED, SA, SE, etc), it is calculated upon sampling, or you can use `evaluate_multiprocess.sh` to calculate. The other evaluation procedure is from [MolGenBench](https://github.com/Intelligent-Drug-Discovery-Lab-TJU/MolGenBench) and [CBGBench](https://github.com/EDAPINENUT/CBGBench/tree/7a34993a8033b0a344ce24cb7c8fb40e5cb73b65), please refer to them for details.
 
 Generated results `EvoEGF-Mol_vina_docked.pt` and `EvoEGF-Mol_metrics.json` can be downloaded from [Google Drive][gdrive].
 
